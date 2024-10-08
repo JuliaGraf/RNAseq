@@ -1,7 +1,10 @@
 process FASTQC {
-
+    debug true
     input:
-    tuple val(meta), val(reads)
+    tuple val(meta), path(reads)
+
+    output:
+    path "*_fastqc.zip"
 
     script:
     """
