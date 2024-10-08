@@ -1,4 +1,5 @@
 include { FASTQC } from '../modules/fastqc'
+include {TRIMGALORE} from '../modules/trimgalore'
 
 workflow RNASEQ {
 
@@ -18,5 +19,8 @@ workflow RNASEQ {
     FASTQC(in_ch)
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
     ch_versions.view()
+
+    TRIMGALORE(in_ch)
+
 
 }
