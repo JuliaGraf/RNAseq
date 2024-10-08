@@ -8,7 +8,7 @@ process FASTQC {
 
     script:
     """
-    fastqc ${reads[0]} ${reads[0]}
+    fastqc ${reads[0]} ${reads[1]}
     ls -lahtr
     """
 }
