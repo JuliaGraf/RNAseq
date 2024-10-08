@@ -18,10 +18,11 @@ workflow RNASEQ {
     // 2. Quality Control
     FASTQC(in_ch)
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
-    ch_versions.view()
 
     // 3. Read Trimming
     TRIMGALORE(in_ch)
+    ch_trimmed = TRIMGALORE.out.trimmed
+    ch_versions = ch_versions.mix(TRIMGALORE.out.versions.first())
 
     // 4. Alignment
 
