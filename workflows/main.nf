@@ -23,5 +23,7 @@ workflow RNASEQ {
     // 3. Read Trimming
     TRIMGALORE(in_ch)
 
+    // 4. Alignment
+
 
 }
