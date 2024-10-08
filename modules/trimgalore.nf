@@ -8,7 +8,7 @@ process TRIMGALORE {
     path "*.*"
     path  "versions.yml", emit: versions
 
-    publishDir 'trimgalore_results', mode: 'copy', pattern: '*.*'
+    publishDir 'trimgalore_results', mode: 'copy', pattern: "*{3prime,5prime,trimmed,val,report}*.{fq,gz,txt}"
 
     script:
     """
