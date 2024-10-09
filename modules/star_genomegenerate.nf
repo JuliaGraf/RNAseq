@@ -8,12 +8,13 @@ process STAR_GENOMEGENERATE {
     
     output:
     path "star_genome" , emit: index
+    path "star_genome/SAindex*" , emit: fai
     path "versions.yml", emit: versions
 
     script:
     """
     mkdir star_genome
-    STAR --runMode genomeGenerate --genomeDir star_genome/  --genomeFastaFiles $genomeFasta --sjdbGTFfile $gtfFile
+    STAR --runMode genomeGenerate --genomeDir star_genome/  --genomeFastaFiles $genomeFasta --sjdbGTFfile $gtfFile 
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

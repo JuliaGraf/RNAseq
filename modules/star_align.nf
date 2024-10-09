@@ -9,6 +9,7 @@ process STAR_ALIGN {
     
     output:
     tuple val(meta), path ("*.*")
+    tuple val(meta), path("*.bam")        , emit: bam
     path  "versions.yml", emit: versions
 
     script:
@@ -19,7 +20,7 @@ process STAR_ALIGN {
         reads = ['',reads[1]]
     }
     """
-    STAR --genomeDir $index --readFilesCommand gunzip -c --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results
+    STAR --genomeDir $index --readFilesCommand gunzip -c --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --outSAMtype BAM SortedByCoordinate
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
