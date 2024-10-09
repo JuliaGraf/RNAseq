@@ -15,5 +15,5 @@ SNI_OXY,path_to_fastq_1.fastq.gz,path_to_fastq_2.fastq.gz,auto
 Now, you can run the pipeline using:
 
 ```bash
-nextflow run ./workflows/main.nf --input <path/to/input_samplesheet> -entry RNASEQ
+nextflow run ./workflows/main.nf --input <path/to/input_samplesheet>  --genomeFasta <path/to/input_genomeFasta> --gtfFile <path/to/gtfFile>  -entry RNASEQ
 ```
