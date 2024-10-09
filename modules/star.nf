@@ -1,5 +1,5 @@
 process STAR {
-    publishDir 'results/star_results', mode: 'copy', pattern: "*.{bam,tab,out,gz,junction,wig,bg}"
+    publishDir 'results/star_results', mode: 'copy', pattern: "*.*"
     debug true
     
     input:
@@ -14,8 +14,8 @@ process STAR {
     script:
     """
     mkdir star_genome
-    STAR --runMode genomeGenerate --genomeDir star_genome/ --genomeFastaFiles $genomeFasta --sjdbGTFfile $gtfFile --runThreadN 4
-    STAR --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --genomeDir star_genome/
+    STAR --runMode genomeGenerate --genomeDir star_genome/ --genomeFastaFiles $genomeFasta --sjdbGTFfile $gtfFile
+    STAR --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --genomeDir test_data
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
