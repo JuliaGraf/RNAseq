@@ -19,7 +19,7 @@ process STAR_ALIGN {
         reads = ['',reads[1]]
     }
     """
-    STAR --genomeDir $index --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --genomeDir test_data
+    STAR --genomeDir $index --readFilesCommand gunzip -c --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -13,7 +13,7 @@ process STAR_GENOMEGENERATE {
     script:
     """
     mkdir star_genome
-    STAR --runMode genomeGenerate --genomeDir star_genome/ --genomeFastaFiles $genomeFasta --genomeSAsparseD 2 --sjdbGTFfile $gtfFile
+    STAR --runMode genomeGenerate --genomeDir star_genome/  --genomeFastaFiles $genomeFasta --sjdbGTFfile $gtfFile
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
