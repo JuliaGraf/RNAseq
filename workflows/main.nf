@@ -1,5 +1,6 @@
 include { FASTQC } from '../modules/fastqc'
-include {TRIMGALORE} from '../modules/trimgalore'
+include { TRIMGALORE } from '../modules/trimgalore'
+include { STAR } from '../modules/star'
 
 workflow RNASEQ {
 
@@ -25,6 +26,6 @@ workflow RNASEQ {
     ch_versions = ch_versions.mix(TRIMGALORE.out.versions.first())
 
     // 4. Alignment
-
+    STAR(ch_trimmed,file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
 
 }
