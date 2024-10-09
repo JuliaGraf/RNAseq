@@ -1,9 +1,8 @@
-process STAR_ALIGN {
-    publishDir 'results/star_results', mode: 'copy', pattern: "*.*"
+process STAR_GENOMEGENERATE {
+    publishDir 'results/star_genome', mode: 'copy', pattern: "*.*"
     debug true
     
     input:
-    tuple val(meta), path(reads) 
     path(genomeFasta)
     path(gtfFile)
     
@@ -14,8 +13,7 @@ process STAR_ALIGN {
     script:
     """
     mkdir star_genome
-    STAR --runMode genomeGenerate --genomeDir star_genome/ --genomeFastaFiles $genomeFasta --sjdbGTFfile $gtfFile
-    STAR --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --genomeDir test_data
+    STAR --runMode genomeGenerate --genomeDir star_genome/ --genomeFastaFiles $genomeFasta --genomeSAsparseD 2 --sjdbGTFfile $gtfFile
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
