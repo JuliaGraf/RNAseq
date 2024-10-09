@@ -3,9 +3,9 @@ process STAR_ALIGN {
     debug true
     
     input:
-    tuple val(meta), path(reads) 
-    path(genomeFasta)
-    path(gtfFile)
+    tuple val(meta), path(reads)
+    path gtfFile
+    path index
     
     output:
     tuple val(meta), path ("*.*")
@@ -13,9 +13,7 @@ process STAR_ALIGN {
 
     script:
     """
-    mkdir star_genome
-    STAR --runMode genomeGenerate --genomeDir star_genome/ --genomeFastaFiles $genomeFasta --sjdbGTFfile $gtfFile
-    STAR --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --genomeDir test_data
+    STAR --genomeDir $index --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --genomeDir test_data
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -1,6 +1,7 @@
-include { FASTQC } from '../modules/fastqc'
-include { TRIMGALORE } from '../modules/trimgalore'
-include { STAR } from '../modules/star'
+include { FASTQC }              from '../modules/fastqc'
+include { TRIMGALORE }          from '../modules/trimgalore'
+include { STAR_ALIGN }          from '../modules/star_align.nf'
+include { STAR_GENOMEGENERATE } from '../modules/star_genomegenerate'
 
 workflow RNASEQ {
 
@@ -26,6 +27,7 @@ workflow RNASEQ {
     ch_versions = ch_versions.mix(TRIMGALORE.out.versions.first())
 
     // 4. Alignment
-    STAR(ch_trimmed,file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
+    STAR_GENOMEGENERATE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
+    STAR_ALIGN(ch_trimmed,file(params.gtfFile, checkIfExists:true), STAR_GENOMEGENERATE.out.index)
 
 }

@@ -7,8 +7,8 @@ process STAR_GENOMEGENERATE {
     path(gtfFile)
     
     output:
-    tuple val(meta), path ("*.*")
-    path  "versions.yml", emit: versions
+    path "star_genome" , emit: index
+    path "versions.yml", emit: versions
 
     script:
     """
