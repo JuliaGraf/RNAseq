@@ -1,5 +1,5 @@
 process TRIMGALORE {
-    publishDir 'trimgalore_results', mode: 'copy', pattern: "*{3prime,5prime,trimmed,val,report}*.{fq,gz,txt}"
+    publishDir 'results/trimgalore_results', mode: 'copy', pattern: "*{3prime,5prime,trimmed,val,report}*.{fq,gz,txt}"
     debug true
 
     input:

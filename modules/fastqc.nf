@@ -1,5 +1,5 @@
 process FASTQC {
-    publishDir 'fastqc_results', mode: 'copy', pattern: '*_fastqc.zip'
+    publishDir 'results/fastqc_results', mode: 'copy', pattern: '*_fastqc.zip'
 
     input:
     tuple val(meta), path(reads)
