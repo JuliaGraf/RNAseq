@@ -2,6 +2,7 @@ include { FASTQC }              from '../modules/fastqc'
 include { TRIMGALORE }          from '../modules/trimgalore'
 include { STAR_ALIGN }          from '../modules/star_align.nf'
 include { STAR_GENOMEGENERATE } from '../modules/star_genomegenerate'
+include { MARKDUPLICATES }      from '../modules/markduplicates'
 
 workflow RNASEQ {
 
@@ -30,4 +31,6 @@ workflow RNASEQ {
     STAR_GENOMEGENERATE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
     STAR_ALIGN(ch_trimmed,file(params.gtfFile, checkIfExists:true), STAR_GENOMEGENERATE.out.index)
 
+    // 5. Mark Duplicates
+    MARKDUPLICATES()
 }
