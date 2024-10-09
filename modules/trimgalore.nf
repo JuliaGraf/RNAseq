@@ -6,7 +6,7 @@ process TRIMGALORE {
     tuple val(meta), path(reads)
 
     output:
-    path "*{trimmed}*.{fq,gz}", emit: trimmed
+    tuple val(meta), path ("*{trimmed}*.{fq,gz}"), emit: trimmed
     path  "versions.yml", emit: versions
 
     script:
