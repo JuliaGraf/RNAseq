@@ -9,7 +9,13 @@ process TRIMGALORE {
     tuple val(meta), path ("*{trimmed}*.{fq,gz}"), emit: trimmed
     path  "versions.yml", emit: versions
 
-    script:
+    script: 
+    if (reads[1] == null){
+        reads = [reads[0],'']
+    }
+    if (reads[0] == null){
+        reads = ['',reads[1]]
+    }
     """
     trim_galore ${reads[0]} ${reads[1]}
     

@@ -12,6 +12,12 @@ process STAR_ALIGN {
     path  "versions.yml", emit: versions
 
     script:
+    if (reads[1] == null){
+        reads = [reads[0],'']
+    }
+    if (reads[0] == null){
+        reads = ['',reads[1]]
+    }
     """
     STAR --genomeDir $index --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --genomeDir test_data
     

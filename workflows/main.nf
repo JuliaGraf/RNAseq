@@ -13,8 +13,12 @@ workflow RNASEQ {
     // 1. Read samplesheet
     ch_samplesheet
         .splitCsv ( header:true, sep:',' )
-        .map { it -> [[sample: it.sample, strandedness: it.strandedness],
-                     [file(it.fastq_1, checkIfExists: true), file(it.fastq_2, checkIfExists: true)]]
+        .map { it -> 
+                if (!it.fastq_2) {
+                    return [[sample: it.sample, strandedness: it.strandedness], [file(it.fastq_1, checkIfExists: true) ]]
+                } else {
+                    return [[sample: it.sample, strandedness: it.strandedness],[file(it.fastq_1, checkIfExists: true), file(it.fastq_2, checkIfExists: true)]]
+                }
         }
         .set { in_ch }
 
@@ -32,5 +36,5 @@ workflow RNASEQ {
     STAR_ALIGN(ch_trimmed,file(params.gtfFile, checkIfExists:true), STAR_GENOMEGENERATE.out.index)
 
     // 5. Mark Duplicates
-    MARKDUPLICATES()
+    //MARKDUPLICATES()
 }
