@@ -36,5 +36,5 @@ workflow RNASEQ {
     STAR_ALIGN(ch_trimmed,file(params.gtfFile, checkIfExists:true), STAR_GENOMEGENERATE.out.index)
 
     // 5. Mark Duplicates
-    MARKDUPLICATES(STAR_ALIGN.out.bam, STAR_GENOMEGENERATE.out.fai, file(params.genomeFasta, checkIfExists:true))
+    MARKDUPLICATES(STAR_ALIGN.out.bam, file(params.genomeFasta, checkIfExists:true), STAR_GENOMEGENERATE.out.fai)
 }
