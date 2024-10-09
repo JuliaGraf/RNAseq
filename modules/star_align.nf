@@ -1,5 +1,5 @@
 process STAR_ALIGN {
-    publishDir 'results/star_results', mode: 'copy', pattern: "*.*"
+    publishDir 'results/star', mode: 'copy', pattern: "*.*"
     debug true
     
     input:
@@ -20,7 +20,7 @@ process STAR_ALIGN {
         reads = ['',reads[1]]
     }
     """
-    STAR --genomeDir $index --readFilesCommand gunzip -c --readFilesIn ${reads[0]} ${reads[1]} --outFileNamePrefix star_results --outSAMtype BAM SortedByCoordinate --outTmpDir /tmp/test
+    STAR --genomeDir $index --readFilesCommand gunzip -c --readFilesIn ${reads[0]} ${reads[1]}  --outSAMtype BAM SortedByCoordinate --outTmpDir /tmp/test
     
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
