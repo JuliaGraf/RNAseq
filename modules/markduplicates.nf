@@ -1,6 +1,6 @@
 process MARKDUPLICATES {
+    publishDir 'results/markduplicates_results', mode: 'copy', pattern: "*.*"
     debug true
-
     input:
     tuple val(meta), path(bam)
     path fasta
