@@ -17,15 +17,15 @@ process RSEM_CALCULATE_EXPRESSION{
     def prefix = "${meta.sample}"
     if (reads[1] == null && reads[0] != null){  
         """
-        rsem-calculate-expression ${reads[0]} rsem_out ${prefix}
+        rsem-calculate-expression ${reads[0]} rsem_out ${prefix} --temporary-folder ./tmp
         """
     } else if (reads[0] == null && reads[1] != null){
         """
-        rsem-calculate-expression ${reads[1]} rsem_out ${prefix}
+        rsem-calculate-expression ${reads[1]} rsem_out ${prefix} --temporary-folder ./tmp
         """
     } else if (reads[0] != null && reads[1] != null) {
         """
-        rsem-calculate-expression --paired-end ${reads[0]} ${reads[1]} rsem_out ${prefix}
+        rsem-calculate-expression --paired-end ${reads[0]} ${reads[1]} rsem_out ${prefix} --temporary-folder ./tmp
         """
     }
 }
