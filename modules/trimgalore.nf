@@ -1,13 +1,14 @@
 process TRIMGALORE {
-    publishDir 'results/trimgalore', mode: 'copy', pattern: "*{3prime,5prime,trimmed,val,report}*.{fq,gz,txt}"
+    publishDir 'results/trimgalore', mode: 'copy', pattern: "[!_]*"
     debug true
 
     input:
     tuple val(meta), path(reads)
 
     output:
-    tuple val(meta), path ("*{trimmed}*.{fq,gz}"), emit: trimmed
-    path  "versions.yml", emit: versions
+    tuple val(meta), path ("*{trimmed}*.{fq,gz}") , emit: trimmed
+    path "*report.txt"                            , emit: report
+    path "_versions.yml"                          , emit: versions
 
     script: 
     if (reads[1] == null){
@@ -20,9 +21,9 @@ process TRIMGALORE {
     trim_galore ${reads[0]} ${reads[1]}
     
     
-    cat <<-END_VERSIONS > versions.yml
+    cat <<-END_VERSIONS > _versions.yml
     "${task.process}":
-        trimgalore: \$(echo \$(trim_galore --version 2>&1) | sed 's/^.version //; s/Last.\$//')
+        trimgalore: \$(echo \$(trim_galore --version 2>&1) | sed 's/.*version //; s/ Last.*//')
         cutadapt: \$(cutadapt --version)
     END_VERSIONS
     """
