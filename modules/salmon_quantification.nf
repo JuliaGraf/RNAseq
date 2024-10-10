@@ -1,5 +1,5 @@
 process SALMON_QUANTIFICATION {
-    publishDir 'results/salmon_quantification', mode: 'copy', pattern: '*'
+    publishDir 'results/', mode: 'copy', pattern: '*'
     debug true
 
 
