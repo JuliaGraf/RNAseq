@@ -47,7 +47,7 @@ workflow RNASEQ {
     softwareVersionsToYAML(ch_versions)
         .collectFile(
             storeDir: "results/pipeline_info",
-            name: 'nf_core_pipeline_software_mqc_versions.yml',
+            name: 'pipeline_software_versions.yml',
             sort: true,
             newLine: true
         )
