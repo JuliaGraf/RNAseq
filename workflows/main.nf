@@ -4,7 +4,7 @@ include { STAR_ALIGN }          from '../modules/star_align.nf'
 include { STAR_GENOMEGENERATE } from '../modules/star_genomegenerate'
 include { MARKDUPLICATES }      from '../modules/markduplicates'
 include { RSEM_PREPARE_REFERENCE }      from '../modules/rsem_prepare_reference'
-include { RSEM_CALCULATE_EXPRESSION }      from '../modules/rsem_calculateexpression'
+include { RSEM_CALCULATE_EXPRESSION }      from '../modules/rsem_calculate_expression'
 
 
 import org.yaml.snakeyaml.Yaml
