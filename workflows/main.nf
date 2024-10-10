@@ -45,9 +45,12 @@ workflow RNASEQ {
 
     // 5. QUANTIFICATION
     RSEM_PREPARE_REFERENCE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
+    ch_versions = ch_versions.mix(RSEM_PREPARE_REFERENCE.out.versions)
     //RSEM_CALCULATE_EXPRESSION(ch_trimmed, RSEM_PREPARE_REFERENCE.out.out_dir)
     SALMON_INDEX(RSEM_PREPARE_REFERENCE.out.index)
+    ch_versions = ch_versions.mix(SALMON_INDEX.out.versions)
     SALMON_QUANTIFICATION(ch_trimmed,SALMON_INDEX.out.index,file(params.gtfFile, checkIfExists:true))
+    ch_versions = ch_versions.mix(SALMON_QUANTIFICATION.out.versions.first())
 
     // 6. Mark Duplicates
     MARKDUPLICATES(STAR_ALIGN.out.bam, file(params.genomeFasta, checkIfExists:true), STAR_GENOMEGENERATE.out.fai)

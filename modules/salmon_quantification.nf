@@ -1,5 +1,5 @@
 process SALMON_QUANTIFICATION {
-    publishDir 'results/', mode: 'copy', pattern: '*'
+    publishDir 'results/', mode: 'copy', pattern: '[!_]*'
     debug true
 
 
@@ -11,7 +11,7 @@ process SALMON_QUANTIFICATION {
 
     output:
     path "salmon_quantification"                    
-    path  "versions.yml"                            , emit: versions
+    path  "_versions.yml"                            , emit: versions
 
     script:
     if (reads[1] == null){
@@ -26,7 +26,7 @@ process SALMON_QUANTIFICATION {
     """
     salmon quant --geneMap ${gtf} --index ${index} -l A ${reads} -o salmon_quantification
 
-    cat <<-END_VERSIONS > versions.yml
+    cat <<-END_VERSIONS > _versions.yml
     "${task.process}":
         salmon: \$(echo \$(salmon --version) | sed -e "s/salmon //g")
     END_VERSIONS
