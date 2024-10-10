@@ -3,6 +3,9 @@ include { TRIMGALORE }          from '../modules/trimgalore'
 include { STAR_ALIGN }          from '../modules/star_align.nf'
 include { STAR_GENOMEGENERATE } from '../modules/star_genomegenerate'
 include { MARKDUPLICATES }      from '../modules/markduplicates'
+include { RSEM_PREPARE_REFERENCE }      from '../modules/rsem_prepare_reference'
+include { RSEM_CALCULATE_EXPRESSION }      from '../modules/rsem_calculateexpression'
+
 
 workflow RNASEQ {
 
@@ -35,6 +38,10 @@ workflow RNASEQ {
     STAR_GENOMEGENERATE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
     STAR_ALIGN(ch_trimmed,file(params.gtfFile, checkIfExists:true), STAR_GENOMEGENERATE.out.index)
 
-    // 5. Mark Duplicates
+    // 5. QUANTIFICATION
+    RSEM_PREPARE_REFERENCE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
+    RSEM_CALCULATE_EXPRESSION(ch_trimmed, RSEM_PREPARE_REFERENCE.out.out_dir)
+
+    // 6. Mark Duplicates
     MARKDUPLICATES(STAR_ALIGN.out.bam, file(params.genomeFasta, checkIfExists:true), STAR_GENOMEGENERATE.out.fai)
 }
