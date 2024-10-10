@@ -13,8 +13,8 @@ process MARKDUPLICATES {
     path  "_versions.yml"                  , emit: versions
 
     script:
-    def prefix = "${meta.sample}"
 
+    def prefix = "${meta.sample}"
     """
     picard MarkDuplicates \\
         --INPUT $bam \\

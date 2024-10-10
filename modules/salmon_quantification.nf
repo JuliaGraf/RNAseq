@@ -8,9 +8,11 @@ process SALMON_QUANTIFICATION {
 
     output:
     path "salmon_quantification"                    
-    path  "_versions.yml"                            , emit: versions
+    path  "_versions.yml"            , emit: versions
 
     script:
+
+    //Check if reads are single-end or paired-end
     if (reads[1] == null){
         reads = '-r '+reads[0] 
     }
@@ -28,6 +30,4 @@ process SALMON_QUANTIFICATION {
         salmon: \$(echo \$(salmon --version) | sed -e "s/salmon //g")
     END_VERSIONS
     """
-
-
 }

@@ -12,6 +12,8 @@ process STAR_ALIGN {
     path  "_versions.yml"          , emit: versions
 
     script:
+
+    //Check if reads are single-end or paired-end
     if (reads[1] == null){
         reads = [reads[0],'']
     }
@@ -26,6 +28,4 @@ process STAR_ALIGN {
         star: \$(STAR --version | sed -e "s/STAR_//g")
     END_VERSIONS
     """
-    
-
 }

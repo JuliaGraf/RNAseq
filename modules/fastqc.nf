@@ -10,6 +10,8 @@ process FASTQC {
     path  "_versions.yml" , emit: versions
 
     script:
+
+    //Check if reads are single-end or paired-end
     if (reads[1] == null){
         reads = [reads[0],'']
     }

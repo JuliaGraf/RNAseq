@@ -13,7 +13,10 @@ process RSEM_CALCULATE_EXPRESSION{
     path  "versions.yml"                       , emit: versions
 
     script:
+
     def prefix = "${meta.sample}"
+    
+    //Check if reads are single-end or paired-end
     if (reads[1] == null && reads[0] != null){  
         """
         rsem-calculate-expression ${reads[0]} rsem_out ${prefix} --temporary-folder ./tmp

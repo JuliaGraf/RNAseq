@@ -1,6 +1,6 @@
 process STAR_GENOMEGENERATE {
     publishDir 'results/', mode: 'copy', pattern: "[!_]*"
-
+    
     input:
     path(genomeFasta)
     path(gtfFile)
@@ -20,6 +20,4 @@ process STAR_GENOMEGENERATE {
         star: \$(STAR --version | sed -e "s/STAR_//g")
     END_VERSIONS
     """
-    
-
 }

@@ -5,8 +5,8 @@ process  SALMON_INDEX {
     path(transcripts)
 
     output:
-    path "salmon_index",          emit: index
-    path "_versions.yml", emit: versions
+    path "salmon_index",        emit: index
+    path "_versions.yml",       emit: versions
 
     script:
     """
@@ -17,6 +17,4 @@ process  SALMON_INDEX {
         salmon: \$(echo \$(salmon --version) | sed -e "s/salmon //g")
     END_VERSIONS
     """
-
-
 }
