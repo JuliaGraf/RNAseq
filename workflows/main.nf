@@ -4,6 +4,8 @@ include { STAR_ALIGN }          from '../modules/star_align.nf'
 include { STAR_GENOMEGENERATE } from '../modules/star_genomegenerate'
 include { MARKDUPLICATES }      from '../modules/markduplicates'
 
+import org.yaml.snakeyaml.Yaml
+
 workflow RNASEQ {
 
     main:
@@ -33,8 +35,70 @@ workflow RNASEQ {
 
     // 4. Alignment
     STAR_GENOMEGENERATE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
+    ch_versions = ch_versions.mix(STAR_GENOMEGENERATE.out.versions)
     STAR_ALIGN(ch_trimmed,file(params.gtfFile, checkIfExists:true), STAR_GENOMEGENERATE.out.index)
+    ch_versions = ch_versions.mix(STAR_ALIGN.out.versions.first())
 
     // 5. Mark Duplicates
     MARKDUPLICATES(STAR_ALIGN.out.bam, file(params.genomeFasta, checkIfExists:true), STAR_GENOMEGENERATE.out.fai)
+    ch_versions = ch_versions.mix(MARKDUPLICATES.out.versions.first())
+
+    // Collate and save software versions
+    softwareVersionsToYAML(ch_versions)
+        .collectFile(
+            storeDir: "results/pipeline_info",
+            name: 'nf_core_pipeline_software_mqc_versions.yml',
+            sort: true,
+            newLine: true
+        )
+}
+
+
+//
+// Get software versions for pipeline
+//
+def processVersionsFromYAML(yaml_file) {
+    Yaml yaml = new Yaml()
+    versions = yaml.load(yaml_file).collectEntries { k, v -> [ k.tokenize(':')[-1], v ] }
+    return yaml.dumpAsMap(versions).trim()
+}
+
+//
+// Generate workflow version string
+//
+def getWorkflowVersion() {
+    String version_string = ""
+    if (workflow.manifest.version) {
+        def prefix_v = workflow.manifest.version[0] != 'v' ? 'v' : ''
+        version_string += "${prefix_v}${workflow.manifest.version}"
+    }
+
+    if (workflow.commitId) {
+        def git_shortsha = workflow.commitId.substring(0, 7)
+        version_string += "-g${git_shortsha}"
+    }
+
+    return version_string
+}
+
+//
+// Get workflow version for pipeline
+//
+def workflowVersionToYAML() {
+    return """
+    Workflow:
+        $workflow.manifest.name: ${getWorkflowVersion()}
+        Nextflow: $workflow.nextflow.version
+    """.stripIndent().trim()
+}
+
+//
+// Get channel of software versions used in pipeline in YAML format
+//
+def softwareVersionsToYAML(ch_versions) {
+    return ch_versions
+                .unique()
+                .map { processVersionsFromYAML(it) }
+                .unique()
+                .mix(Channel.of(workflowVersionToYAML()))
 }

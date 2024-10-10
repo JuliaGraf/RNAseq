@@ -25,8 +25,6 @@ process STAR_ALIGN {
     cat <<-END_VERSIONS > _versions.yml
     "${task.process}":
         star: \$(STAR --version | sed -e "s/STAR_//g")
-        samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//')
-        gawk: \$(echo \$(gawk --version 2>&1) | sed 's/^.*GNU Awk //; s/, .*\$//')
     END_VERSIONS
     """
     

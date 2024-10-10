@@ -23,7 +23,7 @@ process TRIMGALORE {
     
     cat <<-END_VERSIONS > _versions.yml
     "${task.process}":
-        trimgalore: \$(echo \$(trim_galore --version 2>&1) | sed 's/^.version //; s/Last.\$//')
+        trimgalore: \$(echo \$(trim_galore --version 2>&1) | sed 's/.*version //; s/ Last.*//')
         cutadapt: \$(cutadapt --version)
     END_VERSIONS
     """
