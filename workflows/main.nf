@@ -5,7 +5,7 @@ include { STAR_GENOMEGENERATE }       from '../modules/star_genomegenerate'
 include { MARKDUPLICATES }            from '../modules/markduplicates'
 include { RSEM_PREPARE_REFERENCE }    from '../modules/rsem_prepare_reference'
 include { RSEM_CALCULATE_EXPRESSION } from '../modules/rsem_calculate_expression'
-
+include { SALMON_INDEX }              from '../modules/salmon_index'
 
 import org.yaml.snakeyaml.Yaml
 
@@ -44,7 +44,9 @@ workflow RNASEQ {
 
     // 5. QUANTIFICATION
     RSEM_PREPARE_REFERENCE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
-    RSEM_CALCULATE_EXPRESSION(ch_trimmed, RSEM_PREPARE_REFERENCE.out.out_dir)
+    //RSEM_CALCULATE_EXPRESSION(ch_trimmed, RSEM_PREPARE_REFERENCE.out.out_dir)
+    SALMON_INDEX(RSEM_PREPARE_REFERENCE.out.index)
+
 
     // 6. Mark Duplicates
     MARKDUPLICATES(STAR_ALIGN.out.bam, file(params.genomeFasta, checkIfExists:true), STAR_GENOMEGENERATE.out.fai)

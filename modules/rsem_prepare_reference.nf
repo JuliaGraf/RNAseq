@@ -7,8 +7,7 @@ process RSEM_PREPARE_REFERENCE {
     path(gtf)
 
     output:
-    path "*rsem_out*", emit: out_dir
-    path ".", emit:index
+    path "*transcripts.fa", emit: index
     path "versions.yml"   , emit: versions
 
     script:
