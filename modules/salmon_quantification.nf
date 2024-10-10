@@ -15,16 +15,16 @@ process SALMON_QUANTIFICATION {
 
     script:
     if (reads[1] == null){
-        reads = ['-r',reads[0],'','']
+        reads = '-r '+reads[0] 
     }
     else if (reads[0] == null){
-        reads = ['-r',reads[1],'','']
+        reads = '-r '+reads[1]
     }
     else {
-        reads = ['-1',reads[0],'-2',reads[1]]
+        reads = '-1 '+reads[0]+' -2 '+reads[1]
     }
     """
-    salmon quant --geneMap ${gtf} --index ${index} -l A ${reads[0]} ${reads[1]} ${reads[2]} ${reads[3]} -o salmon_quantification
+    salmon quant --geneMap ${gtf} --index ${index} -l A ${reads} -o salmon_quantification
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
