@@ -1,5 +1,5 @@
 process STAR_ALIGN {
-    publishDir 'results/star', mode: 'copy', pattern: "[!_]*"
+    publishDir 'results/star_alignment', mode: 'copy', pattern: "[!_]*"
     debug true
     
     input:
