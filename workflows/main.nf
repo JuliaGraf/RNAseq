@@ -1,12 +1,11 @@
+// Import modules
 include { FASTQC }                    from '../modules/fastqc'
 include { TRIMGALORE }                from '../modules/trimgalore'
-include { STAR_ALIGN }                from '../modules/star_align.nf'
-include { STAR_GENOMEGENERATE }       from '../modules/star_genomegenerate'
 include { MARKDUPLICATES }            from '../modules/markduplicates'
-include { RSEM_PREPARE_REFERENCE }    from '../modules/rsem_prepare_reference'
-include { RSEM_CALCULATE_EXPRESSION } from '../modules/rsem_calculate_expression'
-include { SALMON_INDEX }              from '../modules/salmon_index'
-include { SALMON_QUANTIFICATION }              from '../modules/salmon_quantification'
+
+// Import subworkflows
+include { ALIGNMENT }                 from '../subworkflows/alignment.nf'
+include { QUANTIFICATION }            from '../subworkflows/quantification.nf'
 
 import org.yaml.snakeyaml.Yaml
 
@@ -37,23 +36,22 @@ workflow RNASEQ {
     ch_trimmed = TRIMGALORE.out.trimmed
     ch_versions = ch_versions.mix(TRIMGALORE.out.versions.first())
 
-    // 4. Alignment
-    STAR_GENOMEGENERATE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
-    ch_versions = ch_versions.mix(STAR_GENOMEGENERATE.out.versions)
-    STAR_ALIGN(ch_trimmed,file(params.gtfFile, checkIfExists:true), STAR_GENOMEGENERATE.out.index)
-    ch_versions = ch_versions.mix(STAR_ALIGN.out.versions.first())
+    // 4. SUBWORKFLOW: Alignment
+    ALIGNMENT(ch_trimmed,
+              file(params.genomeFasta, checkIfExists:true),
+              file(params.gtfFile, checkIfExists:true))
+    ch_versions = ch_versions.mix(ALIGNMENT.out.versions)
 
-    // 5. QUANTIFICATION
-    RSEM_PREPARE_REFERENCE(file(params.genomeFasta, checkIfExists:true),file(params.gtfFile, checkIfExists:true))
-    ch_versions = ch_versions.mix(RSEM_PREPARE_REFERENCE.out.versions)
-    //RSEM_CALCULATE_EXPRESSION(ch_trimmed, RSEM_PREPARE_REFERENCE.out.out_dir)
-    SALMON_INDEX(RSEM_PREPARE_REFERENCE.out.index)
-    ch_versions = ch_versions.mix(SALMON_INDEX.out.versions)
-    SALMON_QUANTIFICATION(ch_trimmed,SALMON_INDEX.out.index,file(params.gtfFile, checkIfExists:true))
-    ch_versions = ch_versions.mix(SALMON_QUANTIFICATION.out.versions.first())
+    // 5. SUBWORKFLOW: Quantification
+    QUANTIFICATION(ch_trimmed,
+                   file(params.genomeFasta, checkIfExists:true),
+                   file(params.gtfFile, checkIfExists:true))
+    ch_versions = ch_versions.mix(QUANTIFICATION.out.versions)
 
     // 6. Mark Duplicates
-    MARKDUPLICATES(STAR_ALIGN.out.bam, file(params.genomeFasta, checkIfExists:true), STAR_GENOMEGENERATE.out.fai)
+    MARKDUPLICATES(ALIGNMENT.out.bam,
+                   file(params.genomeFasta, checkIfExists:true),
+                   ALIGNMENT.out.fai)
     ch_versions = ch_versions.mix(MARKDUPLICATES.out.versions.first())
 
     // Collate and save software versions
