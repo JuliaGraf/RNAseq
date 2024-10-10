@@ -1,13 +1,10 @@
 process SALMON_QUANTIFICATION {
     publishDir 'results/', mode: 'copy', pattern: '[!_]*'
-    debug true
-
 
     input:
     tuple val(meta), path(reads)
     path  index
     path  gtf
-
 
     output:
     path "salmon_quantification"                    

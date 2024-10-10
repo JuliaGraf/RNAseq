@@ -1,6 +1,5 @@
 process RSEM_PREPARE_REFERENCE {
     publishDir 'results/rsem_prepare_reference', mode: 'copy', pattern: '*'
-    debug true
 
     input:
     path(fasta)

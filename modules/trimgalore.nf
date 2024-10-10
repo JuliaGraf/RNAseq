@@ -1,6 +1,5 @@
 process TRIMGALORE {
     publishDir 'results/trimgalore', mode: 'copy', pattern: "[!_]*"
-    debug true
 
     input:
     tuple val(meta), path(reads)

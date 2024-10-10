@@ -1,6 +1,5 @@
 process  SALMON_INDEX {
     publishDir 'results/', mode: 'copy', pattern: '[!_]*'
-    debug true
 
     input:
     path(transcripts)

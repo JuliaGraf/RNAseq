@@ -1,7 +1,6 @@
 process STAR_GENOMEGENERATE {
     publishDir 'results/', mode: 'copy', pattern: "[!_]*"
-    debug true
-    
+
     input:
     path(genomeFasta)
     path(gtfFile)

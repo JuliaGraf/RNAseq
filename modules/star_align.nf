@@ -1,7 +1,6 @@
 process STAR_ALIGN {
     publishDir 'results/star_alignment', mode: 'copy', pattern: "[!_]*"
-    debug true
-    
+
     input:
     tuple val(meta), path(reads)
     path gtfFile

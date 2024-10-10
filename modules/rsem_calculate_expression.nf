@@ -1,6 +1,5 @@
 process RSEM_CALCULATE_EXPRESSION{
     publishDir 'results/rsem_calculate_exp', mode: 'copy', pattern: '*'
-    debug true
 
     input:
     tuple val(meta), path(reads)
