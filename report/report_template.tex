@@ -159,7 +159,24 @@ The standardization, portability and reproducibility of analysis pipelines are k
 RNA-sequencing is a technique used to quantify gene expression, and allows for comprehensive profiling of the transcriptome \cite{Kukurba2015}. One of the main goals of gene expression experiments is to identify transcripts that show differential expression under various conditions. A usual RNA-seq workflow involves isolating RNA from the sample, converting it to complementary DNA (cDNA), and sequencing it using an NGS platform. The generated FastQ files contain the sequencing reads of the sample, which can then be aligned to a reference genome using a mapping tool, in order to quantify the expression of genes. The quantification is usally inferred by analyzing the accumulation of read alignments mapped to the reference genome.
 
 \section{Methods}
-(a) How is an nf-core pipeline structured, explain the most important files
+\subsection{The file structure of nf-core pipelines}
+To ensure standardization, all nf-core pipelines have to be built using the nf-core template, which comprises many different files and folders. The most important files and directories are listed in Table~\ref{nfcorefiles}~\cite{nfcorefs}.
+\begin{table}[h]
+    \centering
+    \caption{Important files and directories of an nf-core pipeline.}
+    \begin{tabular}{@{}lp{12cm}@{}}
+        \toprule
+        \textbf{Filename/Directory Name} & \textbf{Description} \\ \midrule
+        \verb|main.nf| & The main nextflow file which get executed when the pipeline is run. Calls workflows from the \verb|workflows/| directory. \\
+        \verb|nextflow.config| & The main nextflow configuration file. It contains the default pipeline parameters, nextflow configuration options and defines different configuration profiles that can be used to run the pipeline. Imports files from the \verb|conf/| directory. \\
+        \verb|README.md| & Contains basic information about the pipeline and usage. \\
+        \verb|conf/| & Contains all of the configuration files. \\
+        \verb|modules/| & Contains pipeline-specific and common nf-core modules. \\
+        \verb|workflows/| & Contains the main pipeline workflows to be executed in the \verb|main.nf| file. \\
+        \verb|subworkflows/| & Contains smaller subworkflows that typically consist out of a few modules chained together. \\ \bottomrule
+    \end{tabular}
+    \label{nfcorefiles}
+\end{table}
 (b) where / how did you compute, which packages etc did you use (be FAIR when describing)
 (c) ...
 
