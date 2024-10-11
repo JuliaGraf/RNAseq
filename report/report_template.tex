@@ -169,6 +169,7 @@ for a couple of files to running plain bash...)
 pipeline would still need to be able to be FAIR, reprod.
 (b) what is missing to your pipeline to be a strong RNA-seq workflow. what would be the next
 steps - Outlook
+While the pipeline successfully generates transcript quantification data, there are opportunities to improve its performance by incorporating additional processes. For instance, integrating support for Unique Molecular Identifiers (UMIs) would allow for their extraction and downstream read deduplication, improving the accuracy of the results and reducing potential biases. The strandedness of sequencing reads could be inferred automatically by combining the subsampling of FastQ files with pseudoalignment, to determine whether reads correspond to the original RNA sequence or its complementary cDNA. Stranded RNA-Seq data offers advantages over non-stranded data, by improving the accuracy of transcript assembly and differential expression \cite{Signal2022}. Additionally, the removal of rRNA from reads can lead to the better detection of mRNA transcripts, which is important for the analysis of differential expression \cite{Pastor2022}. Finally, the generation of additional bigWig coverage files would allow for clearer visualisation of transcript coverage across the genome.
 
 \section*{Data Availability}
 The source code for this paper is available on \href{{https://github.com/JuliaGraf/RNAseq}}{GitHub}.
