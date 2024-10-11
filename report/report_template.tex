@@ -148,15 +148,13 @@ TODO add our abstract
 % \end{figure}
 
 \section{Introduction}
-(a) Pipelines
-(b) FAIR principles and reproducibility
-
+\subsection{Pipelines}
 \subsection{FAIR principles and reproducibility}
 The FAIR principles offer a guideline to improve the findability, accessibility, interoperability and reusability of scientific data and worklflows~\cite{wilkinson2016fair}. 
 Meeting the requirements of the FAIR principles can assist to ensure reproducibility, which plays a major role in validating the results of scientific work.
-
-(c) nf-core
-(d) RNA-seq
+\subsection{nf-core}
+The standardization, portability and reproducibility of analysis pipelines are key issues within the bioinformatics community~\cite{ewels2020nf}. Many pipelines are built as custom in-house scripts which are tightly coupled to the computing environment in which they were developed. This can make it difficult for others to reproduce the results, which is a fundamental requirement for scientific findings. The nf-core community project collects a curated set of best-practice analysis pipelines built using Nextflow. Because the nf-core pipelines are written in Nextflow, they can be executed on most computational infrastructures and have native support for container technologies such as Docker and Singularity. Pipelines within nf-core must adhere to strict guidelines, are required to provide high-quality documentation and must provide test dataset in order to run automated continuous-integration tests whenever there is a change to the pipeline. On every pipeline release, a unique version tag is assigned that provides a static link between the pipeline’s implementation and its associated software dependencies. This way, nf-core assists in the development of high-quality pipelines that anyone can use.
+\subsection{RNA-seq}
 RNA-sequencing is a technique used to quantify gene expression, and allows for comprehensive profiling of the transcriptome \cite{Kukurba2015}. One of the main goals of gene expression experiments is to identify transcripts that show differential expression under various conditions. A usual RNA-seq workflow involves isolating RNA from the sample, converting it to complementary DNA (cDNA), and sequencing it using an NGS platform. The generated FastQ files contain the sequencing reads of the sample, which can then be aligned to a reference genome using a mapping tool, in order to quantify the expression of genes. The quantification is usally inferred by analyzing the accumulation of read alignments mapped to the reference genome.
 
 \section{Methods}
