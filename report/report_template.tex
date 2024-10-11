@@ -79,7 +79,7 @@
 
 \begin{document}
 
-\onecolumn[
+\onecolumn
 \icmltitle{nextflow RNAseq pipeline}
 
 % It is OKAY to include author information, even for blind
@@ -114,7 +114,6 @@
 \icmlkeywords{Machine Learning, ICML}
 
 \vskip 0.3in
-]
 
 % this must go after the closing bracket ] following \twocolumn[ ...
 
@@ -153,6 +152,7 @@ TODO add our abstract
 (b) FAIR principles and reproducibility
 (c) nf-core
 (d) RNA-seq
+RNA-sequencing is a technique used to quantify gene expression, and allows for comprehensive profiling of the transcriptome \cite{Kukurba2015}. One of the main goals of gene expression experiments is to identify transcripts that show differential expression under various conditions. A usual RNA-seq workflow involves isolating RNA from the sample, converting it to complementary DNA (cDNA), and sequencing it using an NGS platform. The generated FastQ files contain the sequencing reads of the sample, which can then be aligned to a reference genome using a mapping tool, in order to quantify the expression of genes. The quantification is usally inferred by analyzing the accumulation of read alignments mapped to the reference genome.
 
 \section{Methods}
 (a) How is an nf-core pipeline structured, explain the most important files
