@@ -1,4 +1,4 @@
-# RNAseq
+# RNAseq pipeline
 
 ## Usage
 
@@ -7,7 +7,7 @@ First, prepare a sample datasheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2,strandedness
+sample,fastq_1,fastq_2
 sample1,<path/to/fastq_1_file>,<path/to/fastq_2_file>
 sample2,<path/to/fastq_1_file>,<path/to/fastq_2_file>
 ```
