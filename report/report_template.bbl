@@ -1,0 +1,25 @@
+\begin{thebibliography}{2}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Kukurba \& Montgomery(2015)Kukurba and Montgomery]{Kukurba2015}
+Kukurba, K.~R. and Montgomery, S.~B.
+\newblock Rna sequencing and analysis.
+\newblock \emph{Cold Spring Harbor Protocols}, 2015\penalty0 (11):\penalty0
+  951--969, April 13 2015.
+\newblock \doi{10.1101/pdb.top084970}.
+
+\bibitem[Wilkinson et~al.(2016)Wilkinson, Dumontier, Aalbersberg, Appleton,
+  Axton, Baak, Blomberg, Boiten, da~Silva~Santos, Bourne,
+  et~al.]{wilkinson2016fair}
+Wilkinson, M.~D., Dumontier, M., Aalbersberg, I.~J., Appleton, G., Axton, M.,
+  Baak, A., Blomberg, N., Boiten, J.-W., da~Silva~Santos, L.~B., Bourne, P.~E.,
+  et~al.
+\newblock The fair guiding principles for scientific data management and
+  stewardship.
+\newblock \emph{Scientific data}, 3\penalty0 (1):\penalty0 1--9, 2016.
+
+\end{thebibliography}
