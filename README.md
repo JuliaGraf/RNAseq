@@ -1,4 +1,4 @@
-# RNAseq
+# RNAseq pipeline
 
 ## Usage
 
@@ -7,9 +7,9 @@ First, prepare a sample datasheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2,strandedness
-sample1,<path/to/fastq_1_file>,<path/to/fastq_2_file>,auto
-sample2,<path/to/fastq_1_file>,<path/to/fastq_2_file>,auto
+sample,fastq_1,fastq_2
+sample1,<path/to/fastq_1_file>,<path/to/fastq_2_file>
+sample2,<path/to/fastq_1_file>,<path/to/fastq_2_file>
 ```
 
 Now, you can run the pipeline using:
@@ -27,4 +27,3 @@ nextflow run ./workflows/main.nf \
 
 > [!NOTE]
 > To run the pipeline on the test data, you need to download the [gtf](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/635/GCF_000001635.27_GRCm39/GCF_000001635.27_GRCm39_genomic.gtf.gz) and [genome](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/635/GCF_000001635.27_GRCm39/GCF_000001635.27_GRCm39_genomic.fna.gz) files and unzip them. 
-> The input read files also have to be unzipped.

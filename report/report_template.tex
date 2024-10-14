@@ -71,7 +71,8 @@
 %    and comment out the line below the next line to turn off comments
 %\usepackage[disable,textsize=tiny]{todonotes}
 \usepackage[textsize=tiny]{todonotes}
-
+\usepackage{caption} 
+\captionsetup[table]{skip=10pt}
 
 % The \icmltitle you define below is probably too long as a header.
 % Therefore, a short form for the running title is supplied here:
@@ -149,8 +150,10 @@ TODO add our abstract
 
 \section{Introduction}
 \subsection{Pipelines}
+A pipeline is a structured sequence of processes designed to carry out data analyses in a systematic and repeatable manner. It typically comprises a series of interconnected steps, including data input, preprocessing, algorithmic computation, and result generation. The use of pipelines allows for the automation of repetitive tasks, ensures the reproducibility of scientific experiments, and optimizes the execution of processes to run efficiently on different types of computing systems, such as servers, clusters, or cloud platforms.
 \subsection{FAIR principles and reproducibility}
 The FAIR principles offer a guideline to improve the findability, accessibility, interoperability and reusability of scientific data and worklflows~\cite{wilkinson2016fair}. 
+Among other things adding identifiers and extensive metadata to the data as well as using standardized communication protocols helps to make data FAIR.
 Meeting the requirements of the FAIR principles can assist to ensure reproducibility, which plays a major role in validating the results of scientific work.
 \subsection{nf-core}
 The standardization, portability and reproducibility of analysis pipelines are key issues within the bioinformatics community~\cite{ewels2020nf}. Many pipelines are built as custom in-house scripts which are tightly coupled to the computing environment in which they were developed. This can make it difficult for others to reproduce the results, which is a fundamental requirement for scientific findings. The nf-core community project collects a curated set of best-practice analysis pipelines built using Nextflow. Because the nf-core pipelines are written in Nextflow, they can be executed on most computational infrastructures and have native support for container technologies such as Docker and Singularity. Pipelines within nf-core must adhere to strict guidelines, are required to provide high-quality documentation and must provide test dataset in order to run automated continuous-integration tests whenever there is a change to the pipeline. On every pipeline release, a unique version tag is assigned that provides a static link between the pipeline’s implementation and its associated software dependencies. This way, nf-core assists in the development of high-quality pipelines that anyone can use.
@@ -158,25 +161,47 @@ The standardization, portability and reproducibility of analysis pipelines are k
 RNA-sequencing is a technique used to quantify gene expression, and allows for comprehensive profiling of the transcriptome \cite{Kukurba2015}. One of the main goals of gene expression experiments is to identify transcripts that show differential expression under various conditions. A usual RNA-seq workflow involves isolating RNA from the sample, converting it to complementary DNA (cDNA), and sequencing it using an NGS platform. The generated FastQ files contain the sequencing reads of the sample, which can then be aligned to a reference genome using a mapping tool, in order to quantify the expression of genes. The quantification is usally inferred by analyzing the accumulation of read alignments mapped to the reference genome.
 
 \section{Methods}
-(a) How is an nf-core pipeline structured, explain the most important files
+\subsection{The file structure of nf-core pipelines}
+To ensure standardization, all nf-core pipelines have to be built using the nf-core template, which comprises many different files and folders. The most important files and directories are listed in Table~\ref{nfcorefiles}~\cite{nfcorefs}.
+\begin{table}[h]
+    \centering
+    \caption{Important files and directories of an nf-core pipeline.}
+    \begin{tabular}{@{}lp{12cm}@{}}
+        \toprule
+        \textbf{Filename/Directory Name} & \textbf{Description} \\ \midrule
+        \verb|main.nf| & The main nextflow file which get executed when the pipeline is run. Calls workflows from the \verb|workflows/| directory. \\
+        \verb|nextflow.config| & The main nextflow configuration file. It contains the default pipeline parameters, nextflow configuration options and defines different configuration profiles that can be used to run the pipeline. Imports files from the \verb|conf/| directory. \\
+        \verb|README.md| & Contains basic information about the pipeline and usage. \\
+        \verb|conf/| & Contains all of the configuration files. \\
+        \verb|modules/| & Contains pipeline-specific and common nf-core modules. \\
+        \verb|workflows/| & Contains the main pipeline workflows to be executed in the \verb|main.nf| file. \\
+        \verb|subworkflows/| & Contains smaller subworkflows that typically consist out of a few modules chained together. \\ \bottomrule
+    \end{tabular}
+    \label{nfcorefiles}
+\end{table}
 (b) where / how did you compute, which packages etc did you use (be FAIR when describing)
 (c) ...
 
-\begin{table}[h!]
+
+docker, nextflow github
+\begin{table}[h]
     \centering
+    \caption{Table with the used tools and their version.}
+    \label{table:1}
     \begin{tabular}{||c c||}
         \hline
         Tool & Version \\
         \hline\hline
-        fastq & 0.12.1\\
-        picard & 3.2.0-1-g3948afb6b\\
-        rsem & 1.3.1\\
-        salmon & 1.10.3\\
-        star & 2.7.11b\\
-        trimgalore & 0.6.10\\
-        cutadapt & 4.9\\
+        FastQC & 0.12.1\\
+        picard MarkDuplicates & 3.2.0-1-g3948afb6b\\
+        RSEM & 1.3.1\\
+        Salmon & 1.10.3\\
+        STAR & 2.7.11b\\
+        Trim Galore! & 0.6.10\\
+        Cutadapt & 4.9\\
         RNAseq & v1.0.0\\
         Nextflow & 24.04.4\\
+        \hline
     \end{tabular}
 \end{table}
 

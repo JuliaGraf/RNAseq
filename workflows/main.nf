@@ -20,9 +20,9 @@ workflow RNASEQ {
         .splitCsv ( header:true, sep:',' )
         .map { it -> 
                 if (!it.fastq_2) {
-                    return [[sample: it.sample, strandedness: it.strandedness], [file(it.fastq_1, checkIfExists: true) ]]
+                    return [[sample: it.sample], [file(it.fastq_1, checkIfExists: true) ]]
                 } else {
-                    return [[sample: it.sample, strandedness: it.strandedness],[file(it.fastq_1, checkIfExists: true), file(it.fastq_2, checkIfExists: true)]]
+                    return [[sample: it.sample],[file(it.fastq_1, checkIfExists: true), file(it.fastq_2, checkIfExists: true)]]
                 }
         }
         .set { in_ch }

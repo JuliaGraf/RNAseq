@@ -1,5 +1,5 @@
 sample,fastq_1,fastq_2,strandedness
-sample1,./test_data/SRR4238351_subsamp.fastq.gz,,auto
-sample2,./test_data/SRR4238355_subsamp.fastq.gz,,auto
-sample3,./test_data/SRR4238359_subsamp.fastq.gz,,auto
-sample4,./test_data/SRR4238379_subsamp.fastq.gz,,auto
+sample1,./test_data/SRR4238351_subsamp.fastq.gz,
+sample2,./test_data/SRR4238355_subsamp.fastq.gz,
+sample3,./test_data/SRR4238359_subsamp.fastq.gz,
+sample4,./test_data/SRR4238379_subsamp.fastq.gz,
