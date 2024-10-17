@@ -192,10 +192,9 @@ The pipeline is implemented in Nextflow and utilises the tools listed in table~\
     \centering
     \caption{Tools used in the pipeline and their version.}
     \label{table:1}
-    \begin{tabular}{||c c||}
-        \hline
-        Tool & Version \\
-        \hline\hline
+    \begin{tabular}{@{}lp{4cm}@{}}
+        \toprule
+        \textbf{Tool} & \textbf{Version} \\ \midrule
         FastQC & 0.12.1\\
         picard MarkDuplicates & 3.2.0-1-g3948afb6b\\
         RSEM & 1.3.1\\
@@ -208,7 +207,7 @@ The pipeline is implemented in Nextflow and utilises the tools listed in table~\
         \hline
     \end{tabular}
 \end{table}
-It automatically installs all tools by employing docker containers, which ensure that the tools of the pipeline are run in the same computing environment on all devices~\cite{docker}.
+It automatically installs all tools by employing docker containers, which ensure that the tools of the pipeline are run in the same computing environment on all devices~\cite{docker}. Each process gets executed in its own docker contaier. The docker images used to build the containers are all from Seqera~\cite{seqera}. To ensure compatibility with both arm and amd architectures we enabled the user to specify the processor they are using. In this way, the corresponding docker images are retrieved.  
 The pipeline was run locally on our laptops.
 
 
