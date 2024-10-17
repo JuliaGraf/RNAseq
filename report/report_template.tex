@@ -182,11 +182,10 @@ To ensure standardization, all nf-core pipelines have to be built using the nf-c
 (b) where / how did you compute, which packages etc did you use (be FAIR when describing)
 (c) ...
 
-
-docker, nextflow github
+The pipeline is implemented in Nextflow and utilises the tools listed in table~\ref{table:1}. 
 \begin{table}[h]
     \centering
-    \caption{Table with the used tools and their version.}
+    \caption{Tools used in the pipeline and their version.}
     \label{table:1}
     \begin{tabular}{||c c||}
         \hline
@@ -204,6 +203,9 @@ docker, nextflow github
         \hline
     \end{tabular}
 \end{table}
+It automatically installes all tools by employing docker containers, which ensure that the tools of the pipeline are run in the same enviroment on all devices~\cite{docker}.  
+The pipeline was run on our laptops.
+
 
 \section{Results}
 (a) describe all aspects of your pipeline
