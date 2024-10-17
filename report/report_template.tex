@@ -207,8 +207,8 @@ The pipeline is implemented in Nextflow and utilises the tools listed in table~\
         \hline
     \end{tabular}
 \end{table}
-It automatically installs all tools by employing docker containers, which ensure that the tools of the pipeline are run in the same computing environment on all devices~\cite{docker}. Each process gets executed in its own docker contaier. The docker images used to build the containers are all from Seqera~\cite{seqera}. To ensure compatibility with both arm and amd architectures we enabled the user to specify the processor they are using. In this way, the corresponding docker images are retrieved.  
-The pipeline was run locally on our laptops.
+The pipeline automatically installs all required tools by utilizing Docker containers, ensuring that each tool runs in a consistent computing environment across all devices~\cite{docker}. Each process is executed within its own Docker container, and the Docker images used to build these containers are sourced from Seqera~\cite{seqera}. To maintain compatibility across both ARM and AMD architectures, users can specify their processor type, allowing the retrieval of the appropriate Docker images.
+For testing, the pipeline was executed locally on our laptops.
 
 
 \section{Results}
