@@ -163,6 +163,8 @@ A usual RNA-seq workflow involves isolating RNA from the sample, converting it t
 The generated FastQ files contain sequencing reads and their associated base quality scores. These reads can then be aligned to a reference genome using mapping tools like STAR \cite{Dobin2012} or HISAT2 \cite{Kim2019}.
 The alignment process allows for quantification of gene expression by counting the accumulation of aligned reads at specific loci in the reference genome \cite{Kukurba2015}. The resulting read counts reflect the transcript abundance, which is used to determine gene expression levels, which is used to infer gene expression levels \cite{Kukurba2015}.
 Alternatively, alignment-free quantification methods, such as Salmon \cite{Patro2017} or Kallisto \cite{Bray2016}, can be used to estimate transcript abundance without requiring a full read alignment.
+The outputs of each process can be found in the \verb|results/| directory, under the corresponding subdirectory of the tool used by the process.
+Additionally, each module in the workflow emits a \verb|versions.yml| file, containing the version number for each tool executed by the module. A summary of all software versions used by the pipeline can be found in \verb|results/pipeline_info/pipeline_software_versions.yml|.
 
 \section{Methods}
 \subsection{The file structure of nf-core pipelines}
