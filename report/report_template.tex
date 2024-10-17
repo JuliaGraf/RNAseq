@@ -184,6 +184,10 @@ To ensure standardization, all nf-core pipelines have to be built using the nf-c
     \label{nfcorefiles}
 \end{table}
 
+The workflow outlines the entire flow of the pipeline, calling different processes and subworkflows, and ensuring they are executed in the correct order.
+Subworkflows are smaller, reusable components within the main workflow. They should combine tools that work together as part of a specific subtask in the analysis~\cite{nfcorefs}.
+A process represents a single, executable task in the pipeline. Each process usually runs a specific tool. These processes are defined in modules, which are independent, reusable Nextflow scripts. Modules allow for standardization and can be reused across different pipelines. 
+Channels pass data between these modules, ensuring that the outputs of one process connect to the inputs of another.
 
 
 \subsection{Where / how did you compute, which packages etc did you use (be FAIR when describing}
