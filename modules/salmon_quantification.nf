@@ -1,5 +1,5 @@
 process SALMON_QUANTIFICATION {
-    publishDir 'results/', mode: 'copy', pattern: '[!_]*'
+    publishDir 'results/salmon_quantification/', mode: 'copy', pattern: '[!_]*'
 
     input:
     tuple val(meta), path(reads)
@@ -7,7 +7,7 @@ process SALMON_QUANTIFICATION {
     path  gtf
 
     output:
-    path "salmon_quantification"                    
+    path "${meta.sample}"
     path  "_versions.yml"            , emit: versions
 
     script:
@@ -23,7 +23,7 @@ process SALMON_QUANTIFICATION {
         reads = '-1 '+reads[0]+' -2 '+reads[1]
     }
     """
-    salmon quant --geneMap ${gtf} --index ${index} -l A ${reads} -o salmon_quantification
+    salmon quant --geneMap ${gtf} --index ${index} -l A ${reads} -o ${meta.sample}
 
     cat <<-END_VERSIONS > _versions.yml
     "${task.process}":
